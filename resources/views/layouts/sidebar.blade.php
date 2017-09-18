@@ -49,33 +49,33 @@
             </li>
 
             <li class="
-            @if (Route::current()->uri == 'user')
+            @if (Route::current()->uri == 'schedule')
             active
             @endif
             ">
-                <a href="{{ route('user.list') }}">
+                <a href="{{ route('schedule.list') }}">
                     <i class="fa fa-calendar"></i>
                     <p>@lang('sidebar.content_schedule')</p>
                 </a>
             </li>
 
             <li class="
-            @if (Route::current()->uri == 'user')
+            @if (Route::current()->uri == 'shalat-time')
             active
             @endif
             ">
-                <a href="{{ route('user.list') }}">
+                <a href="{{ route('shalat.list') }}">
                     <i class="fa fa-hourglass-half"></i>
                     <p>@lang('sidebar.shalat_time')</p>
                 </a>
             </li>
 
             <li class="
-            @if (Route::current()->uri == 'user')
+            @if (Route::current()->uri == 'financial')
             active
             @endif
             ">
-                <a href="{{ route('user.list') }}">
+                <a href="{{ route('financial.list') }}">
                     <i class="fa fa-balance-scale"></i>
                     <p>@lang('sidebar.financial_report')</p>
                 </a>

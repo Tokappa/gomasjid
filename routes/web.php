@@ -42,9 +42,15 @@ Route::post('/gallery/delete', 'GalleryController@destroy')->name('gallery.delet
 
 
 // Schedule
-// Route::get('/schedule', 'ScheduleController@index')->name('schedule.list');
+Route::get('/schedule', 'ScheduleController@index')->name('schedule.list');
+Route::get('/schedule/active', 'ScheduleController@getActive')->name('schedule.list-active');
 // Route::get('/schedule/search', 'ScheduleController@search')->name('schedule.search');
-// Route::get('/schedule/{schedule_id}', 'ScheduleController@show')->name('schedule.profile');
+Route::get('/schedule/{schedule_id}', 'ScheduleController@show')->name('schedule.detail');
 Route::post('/schedule', 'ScheduleController@store')->name('schedule.add');
-// Route::post('/schedule/delete', 'ScheduleController@destroy')->name('schedule.delete');
-// Route::post('/schedule/update', 'ScheduleController@update')->name('schedule.update');
+Route::post('/schedule/delete', 'ScheduleController@destroy')->name('schedule.delete');
+Route::post('/schedule/update', 'ScheduleController@update')->name('schedule.update');
+
+
+// Masjid
+Route::get('/shalat-time', 'MasjidController@indexShalat')->name('shalat.list');
+Route::get('/financial', 'MasjidController@indexFinance')->name('financial.list');

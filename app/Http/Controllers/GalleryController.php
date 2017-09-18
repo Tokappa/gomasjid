@@ -17,7 +17,6 @@ use Jenssegers\Optimus\Optimus;
 class GalleryController extends Controller
 {
 
-
     public function __construct(Request $request, Optimus $optimus)
     {
         $this->middleware('auth');
@@ -27,8 +26,11 @@ class GalleryController extends Controller
 
 
     // List all gallery
-    public function index(Optimus $optimus)
+    public function index()
     {
+        $request        = $this->request;
+        $optimus        = $this->optimus;
+
         $user           = Auth::user();
         $masjid         = Masjid::where('user_id', $user->id)->first();
         $galleries      = $masjid->galleries()->paginate(2);
@@ -39,8 +41,11 @@ class GalleryController extends Controller
 
 
     // Save single gallery
-    public function store(Request $request)
+    public function store()
     {
+
+        $request        = $this->request;
+
         $this->validate($request, [
             'title'     => 'string|max:255',
             'image'     => 'required|image',
@@ -69,8 +74,10 @@ class GalleryController extends Controller
 
 
 
-    public function destroy(Request $request, Optimus $optimus)
+    public function destroy()
     {
+        $request        = $this->request;
+        $optimus        = $this->optimus;
 
         $id             = $optimus->decode($request->input('id'));
         $gallery        = Gallery::findOrFail($id);

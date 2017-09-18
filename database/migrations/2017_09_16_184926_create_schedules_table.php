@@ -14,8 +14,18 @@ class CreateSchedulesTable extends Migration
     public function up()
     {
         Schema::create('schedules', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
+            $table->integer('masjid_id')->unsigned();
+            $table->unsignedBigInteger('gallery_id');
+            $table->dateTime('start');
+            $table->dateTime('end');
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('masjid_id')->references('id')->on('masjids')
+                ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('gallery_id')->references('id')->on('galleries')
+                ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

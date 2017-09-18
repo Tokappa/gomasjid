@@ -3,6 +3,9 @@
 namespace App;
 
 
+use Jenssegers\Optimus\Optimus;
+
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -14,6 +17,14 @@ class Masjid extends Model
 
     // protected $table = 'masjid';
     protected $fillable = ['user_id', 'address'];
+    protected $appends  = ['hashed_id'];
+
+
+    public function getHashedIdAttribute()
+    {
+        return app(Optimus::class)->encode($this->id);
+    }
+
 
     // Define relationship with user model
     public function user()
@@ -27,11 +38,16 @@ class Masjid extends Model
         return $this->hasMany('App\Gallery');
     }
 
-    /*
+
+    public function schedules()
+    {
+        return $this->hasMany('App\Schedule');
+    }
+
     // Define relationship with event model
     public function events()
     {
-        return $this->hasMany('App\Event');
+        return $this->hasMany('App\Schedule');
     }
 
     public function active_events($start, $end, $single_day = false)
@@ -57,6 +73,7 @@ class Masjid extends Model
         }
     }
 
+    /*
     // Define relationship with finance model
     public function finance()
     {
