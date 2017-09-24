@@ -21,7 +21,7 @@ class UsersTableSeeder extends Seeder
 
 
         // Administrator
-        $api_token = str_random(60);
+        $api_token = str_random(25);
 
         $role = Role::where('name', 'administrator')->first();
         $user = new User();
@@ -30,12 +30,12 @@ class UsersTableSeeder extends Seeder
         $user->email = 'admin@yahoo.com';
         $user->password = bcrypt('asdfasdf');
         $user->api_token = $api_token;
+        $user->is_verified = 1;
         $user->save();
         $user->attachRole($role);
 
         // Masjid
-        $verification_code = strtoupper(str_random(10));
-        $api_token = str_random(60);
+        $api_token = str_random(25);
 
         $role = Role::where('name', 'masjid')->first();
         $user = new User();
@@ -44,6 +44,7 @@ class UsersTableSeeder extends Seeder
         $user->email = 'masjid@yahoo.com';
         $user->password = bcrypt('asdfasdf');
         $user->api_token = $api_token;
+        $user->is_verified = 1;
         $user->save();
         $user->attachRole($role);
 

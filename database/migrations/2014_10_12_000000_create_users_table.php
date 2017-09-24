@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->boolean('is_active')->default(0);
             $table->boolean('is_verified')->default(0);
-            $table->string('api_token', 60)->unique();
+            $table->string('api_token', 25)->unique();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

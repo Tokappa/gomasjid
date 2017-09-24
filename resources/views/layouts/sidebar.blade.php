@@ -82,22 +82,22 @@
             </li>
 
             <li class="
-            @if (Route::current()->uri == 'user')
+            @if (Route::current()->uri == 'jumat')
             active
             @endif
             ">
-                <a href="{{ route('user.list') }}">
+                <a href="{{ route('jumat.list') }}">
                     <i class="fa fa-bullhorn"></i>
                     <p>@lang('sidebar.friday_info')</p>
                 </a>
             </li>
 
             <li class="
-            @if (Route::current()->uri == 'user')
+            @if (Route::current()->uri == 'news')
             active
             @endif
             ">
-                <a href="{{ route('user.list') }}">
+                <a href="{{ route('news.list') }}">
                     <i class="fa fa-text-width"></i>
                     <p>@lang('sidebar.running_text')</p>
                 </a>

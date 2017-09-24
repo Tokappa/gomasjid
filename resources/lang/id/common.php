@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 return [
     'login' => 'Masuk',
@@ -7,5 +7,10 @@ return [
         'button_close' => 'Tutup',
         'button_save' => 'Simpan',
         'button_continue' => 'Lanjutkan',
+    ],
+    'table' => [
+        'action' => 'Tindakan',
+        'number' => 'No',
+        'empty_data' => 'Tidak Ada Data',
     ],
 ];

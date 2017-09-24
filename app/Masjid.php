@@ -39,16 +39,12 @@ class Masjid extends Model
     }
 
 
+    // Define relationship with Schedule model
     public function schedules()
     {
         return $this->hasMany('App\Schedule');
     }
 
-    // Define relationship with event model
-    public function events()
-    {
-        return $this->hasMany('App\Schedule');
-    }
 
     public function active_events($start, $end, $single_day = false)
     {
@@ -59,11 +55,11 @@ class Masjid extends Model
         $params = array($start, $end);
         if ($single_day)
         {
-            return $this->events()->where('start', '<=', $start)->where('end', '>=', $end);
+            return $this->schedules()->where('start', '<=', $start)->where('end', '>=', $end);
         }
         else
         {
-            return $this->events()->where(function($query) use ($params)
+            return $this->schedules()->where(function($query) use ($params)
 					{
 						$query->whereBetween('start', $params)->orWhere(function($query2) use ($params)
 						{
@@ -73,7 +69,6 @@ class Masjid extends Model
         }
     }
 
-    /*
     // Define relationship with finance model
     public function finance()
     {
@@ -93,6 +88,7 @@ class Masjid extends Model
         return $this->hasMany('App\News');
     }
 
+    /*
     // Define relationship with statistic model
     public function statistics()
     {

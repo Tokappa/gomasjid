@@ -3,13 +3,13 @@
 
 
 @section('page-title')
-@lang('masjid.financial.page_title')
+@lang('masjid.jumat.page_title')
 @endsection
 
 
 
 @section('navbar-dashboard-title')
-@lang('masjid.financial.page_title')
+@lang('masjid.jumat.page_title')
 @endsection
 
 
@@ -53,53 +53,53 @@
                     <div class="col-sm-4">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title">@lang('masjid.financial_status')</h3>
+                                <h3 class="panel-title">@lang('masjid.jumat_info')</h3>
+                                <!-- <p class="text-muted text-center">Update date("d F Y", strtotime($masjid->jumat->updated_at))</p> -->
                             </div>
                             <div class="panel-body">
 
                                 <ul class="list-group list-group-unbordered">
                                     <li class="list-group-item">
-                                        <b>@lang('masjid.income')</b> <span class="pull-right">Rp. {{ (isset($masjid->financial)) ? number_format($masjid->financial->income, 0, ',', '.') : 0}}</span>
+                                        <b>@lang('masjid.jumat.muadzin')</b> <span class="pull-right">{{ (isset($masjid->jumat)) ? $masjid->jumat->muadzin : ""}}</span>
                                     </li>
                                     <li class="list-group-item">
-                                        <b>@lang('masjid.expense')</b> <span class="pull-right">Rp. {{ (isset($masjid->financial)) ? number_format($masjid->financial->expense, 0, ',', '.') : 0}}</span>
+                                        <b>@lang('masjid.jumat.khatib')</b> <span class="pull-right">{{ (isset($masjid->jumat)) ? $masjid->jumat->khatib : ""}}</span>
                                     </li>
                                     <li class="list-group-item">
-                                        <b>@lang('masjid.balance')</b> <span class="pull-right">Rp. {{ (isset($masjid->financial)) ? number_format($masjid->financial->balance, 0, ',', '.') : 0}}</span>
+                                        <b>@lang('masjid.jumat.imam')</b> <span class="pull-right">{{ (isset($masjid->jumat)) ? $masjid->jumat->imam : ""}}</span>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-8">
-                        <form action="{{ route('financial.update') }}" method="post">
+                        <form action="{{ route('jumat.update') }}" method="post">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">@lang('masjid.financial_update')</h3>
+                                    <h3 class="panel-title">@lang('masjid.jumat_update')</h3>
                                 </div>
 
                                 <div class="panel-body">
 
                                     <div class="form-group label-floating">
-                                        <label class="control-label">@lang('masjid.input_income')</label>
-                                        <input type="text" class="form-control" name="income" value="{{ $masjid->financial->income or 0 }}">
+                                        <label class="control-label">@lang('masjid.input_muadzin')</label>
+                                        <input type="text" class="form-control" name="muadzin" value="{{ $masjid->jumat->muadzin or "" }}">
                                     </div>
 
 
                                     <div class="form-group label-floating">
-                                        <label class="control-label">@lang('masjid.input_expense')</label>
-                                        <input type="text" class="form-control" name="expense" value="{{ $masjid->financial->expense or 0 }}">
+                                        <label class="control-label">@lang('masjid.input_khatib')</label>
+                                        <input type="text" class="form-control" name="khatib" value="{{ $masjid->jumat->khatib or "" }}">
                                     </div>
 
                                     <div class="form-group label-floating">
-                                        <label class="control-label">@lang('masjid.input_balance')</label>
-                                        <input type="text" class="form-control" name="balance" value="{{ $masjid->financial->balance or 0 }}">
+                                        <label class="control-label">@lang('masjid.input_imam')</label>
+                                        <input type="text" class="form-control" name="imam" value="{{ $masjid->jumat->imam or "" }}">
                                     </div>
 
                                 </div>
 
                                 <div class="panel-footer">
-                                    <input type="hidden" name="step" value="1">
                                     {{ csrf_field() }}
                                     <button class="btn btn-primary btn-block">Simpan</button>
                                 </div>

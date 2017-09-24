@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
+
 use Faker\Factory as Faker;
 use Carbon\Carbon;
 
@@ -19,14 +20,14 @@ class GalleriesTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i=1; $i<=100; $i++)
+        for ($i=1; $i<=11; $i++)
         {
             echo "Gallery ";
             echo $i;
             echo "\n";
 
             $gallery                = new Gallery();
-            $gallery->masjid_id     = 9;
+            $gallery->masjid_id     = 1;
             $gallery->image_url     = $faker->imageUrl($width = 1600, $height = 900);
             $gallery->title         = $faker->realText($faker->numberBetween(10,20));
             $gallery->save();

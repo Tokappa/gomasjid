@@ -19,7 +19,7 @@ class CreateMasjidsTable extends Migration
 		     $table->string('contact_phone', 100)->nullable();
              $table->string('address')->nullable();
              $table->decimal('lat', 9,6)->nullable();
-             $table->decimal('lon', 9,6)->nullable();
+             $table->decimal('lng', 9,6)->nullable();
              $table->decimal('alt', 6,2)->nullable();
              $table->text('fine_tune')->nullable();
              $table->enum('convention', ['mwlg', 'isna', 'egas', 'uqum', 'uisk'])->default('egas');

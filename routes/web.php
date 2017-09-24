@@ -53,4 +53,13 @@ Route::post('/schedule/update', 'ScheduleController@update')->name('schedule.upd
 
 // Masjid
 Route::get('/shalat-time', 'MasjidController@indexShalat')->name('shalat.list');
+Route::post('/shalat-time', 'MasjidController@storeShalat')->name('shalat.update');
 Route::get('/financial', 'MasjidController@indexFinance')->name('financial.list');
+Route::post('/financial', 'MasjidController@storeFinance')->name('financial.update');
+Route::get('/jumat', 'MasjidController@indexJumat')->name('jumat.list');
+Route::post('/jumat', 'MasjidController@storeJumat')->name('jumat.update');
+Route::get('/news', 'MasjidController@indexNews')->name('news.list');
+Route::post('/news/update', 'MasjidController@storeNews')->name('news.update');
+Route::post('/news/add', 'MasjidController@storeNews')->name('news.store');
+Route::post('/news/detail', 'MasjidController@showNews')->name('news.detail');
+Route::post('/news/delete', 'MasjidController@destroyNews')->name('news.delete');
