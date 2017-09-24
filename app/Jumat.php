@@ -13,7 +13,13 @@ class Jumat extends Model
     use SoftDeletes;
 
     protected $fillable     = ['masjid_id', 'muadzin', 'khatib', 'imam'];
-    protected $hidden       = ['created_at', 'updated_at'];
+    protected $hidden = [
+        'id',
+        'masjid_id',
+        'created_at',
+        // 'updated_at',
+        'deleted_at',
+    ];
     protected $table        = 'jumat';
 
     public function masjid()

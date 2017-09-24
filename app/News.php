@@ -14,7 +14,13 @@ class News extends Model
     use SoftDeletes;
 
     protected $fillable     = ['masjid_id', 'title', 'content'];
-    protected $hidden       = ['id', 'created_at', 'updated_at'];
+    protected $hidden = [
+        'id',
+        'masjid_id',
+        'created_at',
+        // 'updated_at',
+        'deleted_at',
+    ];
     protected $appends      = ['hashed_id'];
 
 

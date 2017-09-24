@@ -55,7 +55,7 @@ class ScheduleController extends Controller
         {
             $event->backgroundColor = "#9c27b0";
             $event->borderColor     = "#9c27b0";
-            $event->title           = "Test";
+            $event->title           = $event->gallery->title;
             $event->image           = asset($event->gallery->image_url);
             $event->url             = route('schedule.detail', $event->hashed_id);
         }

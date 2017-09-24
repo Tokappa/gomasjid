@@ -22,11 +22,12 @@ class ApiController extends Controller
      *
      * @return void
      */
-    // public function __construct()
-    // {
-    //     // $this->middleware(['role:member']);
-    //     $this->middleware('auth:api');
-    // }
+    public function __construct()
+    {
+        // $this->middleware(['role:member']);
+        // $user           = Auth::guard('api')->user();
+        // $masjid         = Masjid::where('user_id', $this->user->id)->first();
+    }
 
     // Get masjid configuration to calculate sholat times
     // Parameters:
@@ -35,50 +36,58 @@ class ApiController extends Controller
     {
         $user           = Auth::guard('api')->user();
         $masjid         = Masjid::where('user_id', $user->id)->first();
+        $masjid->name   = $user->name;
+        $masjid->phone  = $user->phone;
 
         return $masjid;
     }
 
-    // Get masjid current event
-    public function postEvents()
-    {
-        $user = Auth::guard('api')->user();
-        $masjid = $user->masjid;
-        $id     = $masjid->id;
-        $start  = date("Y-m-d") . " 00:00:00";
-        $end    = date("Y-m-d") . " 23:59:59";
-        // $start  = $request->start;
-        // $end    = $request->end;
 
-        // dd($start);
+
+    // Get masjid current slideshows
+    public function postSlideshows()
+    {
+        $user           = Auth::guard('api')->user();
+        $masjid         = Masjid::where('user_id', $user->id)->first();
+        $id             = $masjid->id;
+        $start          = date("Y-m-d") . " 00:00:00";
+        $end            = date("Y-m-d") . " 23:59:59";
 
         // Search database
-        $masjid = Masjid::find($id);
-        $events = $masjid->active_events($start, $end, true)->get();
-        return $events;
+        $slideshows     = $masjid->active_events($start, $end, true)->with('gallery')->get();
+        return $slideshows;
     }
+
+
 
     // Get financial condition
     public function postFinancial()
     {
-        $user = Auth::guard('api')->user();
-        $financial = Finance::where(['masjid_id' => $user->masjid->id])->first();
+        $user           = Auth::guard('api')->user();
+        $masjid         = Masjid::where('user_id', $user->id)->first();
+        $financial      = $masjid->finance;
         return $financial;
     }
+
+
 
     // Get sholat jumat
     public function postJumat()
     {
-        $user = Auth::guard('api')->user();
-        $jumat = Jumat::where(['masjid_id' => $user->masjid->id])->first();
+        $user           = Auth::guard('api')->user();
+        $masjid         = Masjid::where('user_id', $user->id)->first();
+        $jumat          = $masjid->jumat;
         return $jumat;
     }
+
+
 
     // Get running text
     public function postNews()
     {
-        $user = Auth::guard('api')->user();
-        $news = News::where(['masjid_id' => $user->masjid->id])->get();
+        $user           = Auth::guard('api')->user();
+        $masjid         = Masjid::where('user_id', $user->id)->first();
+        $news           = $masjid->news;
         return $news;
     }
 

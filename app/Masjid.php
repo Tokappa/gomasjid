@@ -18,7 +18,13 @@ class Masjid extends Model
     // protected $table = 'masjid';
     protected $fillable = ['user_id', 'address'];
     protected $appends  = ['hashed_id'];
-
+    protected $hidden = [
+        'id',
+        'user_id',
+        'created_at',
+        // 'updated_at',
+        'deleted_at',
+    ];
 
     public function getHashedIdAttribute()
     {
@@ -60,12 +66,12 @@ class Masjid extends Model
         else
         {
             return $this->schedules()->where(function($query) use ($params)
-					{
-						$query->whereBetween('start', $params)->orWhere(function($query2) use ($params)
-						{
-							$query2->whereBetween('end', $params);
-						});
-                    });
+			{
+				$query->whereBetween('start', $params)->orWhere(function($query2) use ($params)
+				{
+					$query2->whereBetween('end', $params);
+				});
+            });
         }
     }
 

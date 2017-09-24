@@ -13,7 +13,13 @@ class Finance extends Model
     use SoftDeletes;
 
     protected $fillable     = ['masjid_id', 'income', 'expense', 'balance'];
-    protected $hidden       = ['created_at', 'updated_at', 'deleted_at'];
+    protected $hidden = [
+        'id',
+        'masjid_id',
+        'created_at',
+        // 'updated_at',
+        'deleted_at',
+    ];
 
     public function masjid()
     {

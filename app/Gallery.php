@@ -16,8 +16,13 @@ class Gallery extends Model
     use SoftDeletes;
 
     protected $fillable = ['masjid_id', 'image_url', 'title'];
-    protected $hidden   = ['id', 'created_at', 'updated_at', 'deleted_at'];
-
+    protected $hidden = [
+        'id',
+        'masjid_id',
+        'created_at',
+        // 'updated_at',
+        'deleted_at',
+    ];
 
     protected $appends  = ['hashed_id'];
 
