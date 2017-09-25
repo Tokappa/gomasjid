@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Masjid;
+
+
+use Auth;
 use Illuminate\Http\Request;
+
 
 class HomeController extends Controller
 {
@@ -24,6 +30,9 @@ class HomeController extends Controller
     public function index()
     {
         $users = \App\User::all();
-        return view('pages.dashboard', compact('users'));
+        // dd($users);
+        $user           = Auth::user();
+        $masjid         = Masjid::where('user_id', $user->id)->first();
+        return view('pages.dashboard', compact('users', 'user', 'masjid'));
     }
 }

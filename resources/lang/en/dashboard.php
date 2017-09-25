@@ -10,4 +10,6 @@ return [
     'counted_since' => 'Counted since',
     'increased' => 'Increase',
     'decreased' => 'Decrease',
+    'api_key' => 'API Token',
+    'button_change_token' => 'Change',
 ];

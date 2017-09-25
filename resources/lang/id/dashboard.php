@@ -10,4 +10,6 @@ return [
     'counted_since' => 'Dihitung sejak',
     'increased' => 'Naik',
     'decreased' => 'Turun',
+    'api_key' => 'Token API',
+    'button_change_token' => 'Ubah',
 ];
