@@ -10,7 +10,8 @@
 
 @section('style')
 <link rel="stylesheet" href="{{ asset('css/jquery.typeahead.css') }}">
-<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.5.1/fullcalendar.min.css" />
+<!-- <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.5.1/fullcalendar.min.css" /> -->
+<link rel="stylesheet" type="text/css" href="{{ asset('css/fullcalendar.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('css/jquery.qtip.min.css') }}">
 @endsection
 
@@ -84,8 +85,10 @@
 
 @section('javascript')
 <script src="{{ asset('js/jquery.typeahead.min.js') }}"></script>
-<script src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.5.1/fullcalendar.min.js"></script>
+<!-- <script src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script> -->
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.5.1/fullcalendar.min.js"></script> -->
+<script src="{{ asset('js/moment.min.js') }}"></script>
+<script src="{{ asset('js/fullcalendar.min.js') }}"></script>
 <script src="{{ asset('js/jasny-bootstrap.min.js') }}"></script>
 <script src="{{ asset('js/jquery.qtip.min.js') }}"></script>
 <script>
