@@ -37,4 +37,10 @@ class Gallery extends Model
     {
         return $this->belongsTo('App\Masjid');
     }
+
+
+    public function schedules()
+    {
+        return $this->hasMany('App\Schedule');
+    }
 }

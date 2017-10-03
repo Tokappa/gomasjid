@@ -82,7 +82,12 @@ class GalleryController extends Controller
         $id             = $optimus->decode($request->input('id'));
         $gallery        = Gallery::findOrFail($id);
 
+        // Delete related schedules
+        $gallery->schedules()->delete();
+
+        // Delete gallery
         $gallery->delete();
+
 
         return back()->with('success', __('gallery.flash_deleted_successfully'));
     }
