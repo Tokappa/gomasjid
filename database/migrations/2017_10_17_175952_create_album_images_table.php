@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGalleriesTable extends Migration
+class CreateAlbumImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,17 @@ class CreateGalleriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('galleries', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('masjid_id')->unsigned();
+        Schema::create('album_images', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('album_id')->unsigned();
             $table->string('image_url');
-            $table->string('title');
+            $table->string('title')->nullable();
             $table->string('md5');
+            $table->unsignedInteger('sequence');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('masjid_id')->references('id')->on('masjids')
+
+            $table->foreign('album_id')->references('id')->on('albums')
                 ->onUpdate('cascade')->onDelete('cascade');
         });
     }
@@ -33,6 +35,6 @@ class CreateGalleriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('galleries');
+        Schema::dropIfExists('album_images');
     }
 }

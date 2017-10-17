@@ -41,6 +41,6 @@ class Gallery extends Model
 
     public function schedules()
     {
-        return $this->hasMany('App\Schedule');
+        return $this->hasMany('App\GallerySchedule');
     }
 }

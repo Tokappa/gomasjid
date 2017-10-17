@@ -41,11 +41,17 @@ Route::post('/gallery/delete', 'GalleryController@destroy')->name('gallery.delet
 // Route::post('/gallery/update', 'GalleryController@update')->name('gallery.update');
 
 
+// Album
+Route::get('/album', 'AlbumController@index')->name('album.list');
+Route::post('/album', 'AlbumController@store')->name('album.add');
+
+
 // Schedule
 Route::get('/schedule', 'ScheduleController@index')->name('schedule.list');
 Route::get('/schedule/active', 'ScheduleController@getActive')->name('schedule.list-active');
 // Route::get('/schedule/search', 'ScheduleController@search')->name('schedule.search');
-Route::get('/schedule/{schedule_id}', 'ScheduleController@show')->name('schedule.detail');
+Route::get('/schedule/gallery/{schedule_id}', 'ScheduleController@showGallery')->name('schedule.detail.gallery');
+Route::get('/schedule/album/{schedule_id}', 'ScheduleController@showAlbum')->name('schedule.detail.album');
 Route::post('/schedule', 'ScheduleController@store')->name('schedule.add');
 Route::post('/schedule/delete', 'ScheduleController@destroy')->name('schedule.delete');
 Route::post('/schedule/update', 'ScheduleController@update')->name('schedule.update');

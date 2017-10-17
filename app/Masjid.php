@@ -45,14 +45,26 @@ class Masjid extends Model
     }
 
 
-    // Define relationship with Schedule model
-    public function schedules()
+    public function albums()
     {
-        return $this->hasMany('App\Schedule');
+        return $this->hasMany('App\Album');
     }
 
 
-    public function active_events($start, $end, $single_day = false)
+    // Define relationship with Schedule model
+    public function gallery_schedules()
+    {
+        return $this->hasMany('App\GallerySchedule');
+    }
+
+
+    public function album_schedules()
+    {
+        return $this->hasMany('App\AlbumSchedule');
+    }
+
+
+    public function active_galleries($start, $end, $single_day = false)
     {
         // $current_time = \Carbon\Carbon::now();
         // echo $current_time->toDateTimeString();
@@ -61,11 +73,11 @@ class Masjid extends Model
         $params = array($start, $end);
         if ($single_day)
         {
-            return $this->schedules()->where('start', '<=', $start)->where('end', '>=', $end);
+            return $this->gallery_schedules()->where('start', '<=', $start)->where('end', '>=', $end);
         }
         else
         {
-            return $this->schedules()->where(function($query) use ($params)
+            return $this->gallery_schedules()->where(function($query) use ($params)
 			{
 				$query->whereBetween('start', $params)->orWhere(function($query2) use ($params)
 				{
@@ -74,6 +86,28 @@ class Masjid extends Model
             });
         }
     }
+
+
+    public function active_albums($start, $end, $single_day = false)
+    {
+
+        $params = array($start, $end);
+        if ($single_day)
+        {
+            return $this->album_schedules()->where('start', '<=', $start)->where('end', '>=', $end);
+        }
+        else
+        {
+            return $this->album_schedules()->where(function($query) use ($params)
+			{
+				$query->whereBetween('start', $params)->orWhere(function($query2) use ($params)
+				{
+					$query2->whereBetween('end', $params);
+				});
+            });
+        }
+    }
+
 
     // Define relationship with finance model
     public function finance()

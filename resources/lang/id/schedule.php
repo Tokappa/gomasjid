@@ -11,4 +11,5 @@ return [
     'delete_confirmation' => 'Apakah Anda yakin untuk menghapus jadwal ini?',
     'update_schedule_title' => 'Ubah Jadwal Tayang',
     'flash_deleted_successfully' => 'Jadwal Berhasil Dihapus',
+    'flash_error' => 'Terjadi Kesalahan',
 ];

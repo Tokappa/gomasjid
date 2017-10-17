@@ -7,22 +7,24 @@ use Jenssegers\Optimus\Optimus;
 
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class Schedule extends Model
+class Album extends Model
 {
 
-    protected $appends  = ['hashed_id'];
+    use SoftDeletes;
+
+    protected $fillable = ['masjid_id', 'title'];
     protected $hidden = [
         'id',
         'masjid_id',
-        'gallery_id',
-        // 'start',
-        // 'end',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
+
+    protected $appends  = ['hashed_id'];
 
 
     public function getHashedIdAttribute()
@@ -30,8 +32,15 @@ class Schedule extends Model
         return app(Optimus::class)->encode($this->id);
     }
 
-    public function gallery()
+
+    public function images()
     {
-        return $this->belongsTo('App\Gallery');
+        return $this->hasMany('App\AlbumImage');
     }
+
+    public function schedules()
+    {
+        return $this->hasMany('App\AlbumSchedule');
+    }
+
 }

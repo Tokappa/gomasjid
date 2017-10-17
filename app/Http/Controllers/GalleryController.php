@@ -65,6 +65,7 @@ class GalleryController extends Controller
         $img                = Image::make($request->file('image'));
         $img->fit(1600, 900);
         $img->save($path, 80);
+        $gallery->md5       = md5_file($path);
         $gallery->image_url = $path;
 
         $gallery->save();

@@ -8,4 +8,5 @@ return [
     'running_text' => 'Running Text',
     'content_schedule' => 'Jadwal Tayang Konten',
     'gallery' => 'Galeri',
+    'album' => 'Album',
 ];

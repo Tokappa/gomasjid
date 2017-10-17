@@ -112,6 +112,7 @@
                 <div class="modal-footer">
                     {{ csrf_field() }}
                     <input type="hidden" name="id" value="{{ $schedule->hashed_id }}">
+                    <input type="hidden" name="type" value="gallery">
                     <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">@lang('common.modal.button_close')</button>
                     <button type="submit" class="btn btn-info btn-primary">@lang('common.modal.button_continue')</button>
                 </div>
@@ -145,6 +146,7 @@
                 <div class="modal-footer">
                     {{ csrf_field() }}
                     <input type="hidden" name="id" value="{{ $schedule->hashed_id }}">
+                    <input type="hidden" name="type" value="gallery">
                     <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">@lang('common.modal.button_close')</button>
                     <button type="submit" class="btn btn-info btn-primary">@lang('common.modal.button_continue')</button>
                 </div>

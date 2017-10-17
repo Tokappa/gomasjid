@@ -8,4 +8,5 @@ return [
     'running_text' => 'Running Text',
     'content_schedule' => 'Content Display Schedule',
     'gallery' => 'Gallery',
+    'album' => 'Album',
 ];

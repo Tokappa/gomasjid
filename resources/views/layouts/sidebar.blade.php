@@ -49,6 +49,17 @@
             </li>
 
             <li class="
+            @if (Route::current()->uri == 'album')
+            active
+            @endif
+            ">
+                <a href="{{ route('album.list') }}">
+                    <i class="fa fa-book"></i>
+                    <p>@lang('sidebar.album')</p>
+                </a>
+            </li>
+
+            <li class="
             @if (Route::current()->uri == 'schedule')
             active
             @endif

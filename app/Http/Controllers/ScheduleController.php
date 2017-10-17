@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 
+use App\Album;
 use App\Masjid;
 use App\Gallery;
-use App\Schedule;
+use App\AlbumSchedule;
+use App\GallerySchedule;
 
 
 use Auth;
@@ -49,19 +51,39 @@ class ScheduleController extends Controller
 
         // Search database
         $masjid     = Masjid::findOrFail($optimus->decode($id));
-        $schedules  = $masjid->active_events($start, $end)->get();
 
-        foreach ($schedules as $event)
+        // Gallery
+        $gallery_schedules  = $masjid->gallery_schedules($start, $end)->get();
+
+        // Album
+        $album_schedules    = $masjid->album_schedules($start, $end)->get();
+
+        foreach ($gallery_schedules as $event)
         {
             $event->backgroundColor = "#9c27b0";
             $event->borderColor     = "#9c27b0";
             $event->title           = $event->gallery->title;
             $event->image           = asset($event->gallery->image_url);
-            $event->url             = route('schedule.detail', $event->hashed_id);
+            $event->url             = route('schedule.detail.gallery', $event->hashed_id);
+        }
+
+        foreach ($album_schedules as $event)
+        {
+            $event->backgroundColor = "#00bcd4";
+            $event->borderColor     = "#00bcd4";
+            $event->title           = $event->album->title;
+            $event->image           = asset($event->album->images->first()->image_url);
+            $event->url             = route('schedule.detail.album', $event->hashed_id);
         }
 
         // Return JSON
-        return $schedules;
+        // dd($gallery_schedules->toArray());
+        // return array_merge($gallery_schedules, $album_schedules);
+        // $merged = $gallery_schedules->merge($album_schedules);
+        // return $merged->all();
+        $gallery_schedule = $gallery_schedules->toArray();
+        $album_schedule = $album_schedules->toArray();
+        return array_merge($gallery_schedule, $album_schedule);
     }
 
 
@@ -75,22 +97,49 @@ class ScheduleController extends Controller
         $this->validate($request, [
             'id'                => 'required|numeric',
             'display_schedule'  => 'required|string',
+            'type'              => 'required|string'
         ]);
 
         $user           = Auth::user();
         $masjid         = Masjid::where('user_id', $user->id)->first();
 
         $id             = $optimus->decode($request->input('id'));
-        $gallery        = Gallery::findOrFail($id);
 
-        $display_schedule   = explode(' - ', $request->display_schedule);
 
-        $schedule       = new Schedule();
-        $schedule->masjid_id    = $masjid->id;
-        $schedule->gallery_id   = $gallery->id;
-        $schedule->start        = trim($display_schedule[0]) . ' 00:00:00';
-        $schedule->end          = trim($display_schedule[1]) . ' 23:59:59';
-        $schedule->save();
+        // Decide whether we're add gallery or album schedule
+        if ($request->input('type') == 'gallery')
+        {
+            $gallery                = Gallery::findOrFail($id);
+
+            $display_schedule       = explode(' - ', $request->display_schedule);
+
+            $schedule               = new GallerySchedule();
+            $schedule->masjid_id    = $masjid->id;
+            $schedule->gallery_id   = $gallery->id;
+            $schedule->start        = trim($display_schedule[0]) . ' 00:00:00';
+            $schedule->end          = trim($display_schedule[1]) . ' 23:59:59';
+            $schedule->save();
+
+        }
+
+        else if ($request->input('type') == 'album')
+        {
+            $album                  = Album::findOrFail($id);
+
+            $display_schedule       = explode(' - ', $request->display_schedule);
+
+            $schedule               = new AlbumSchedule();
+            $schedule->masjid_id    = $masjid->id;
+            $schedule->album_id     = $album->id;
+            $schedule->start        = trim($display_schedule[0]) . ' 00:00:00';
+            $schedule->end          = trim($display_schedule[1]) . ' 23:59:59';
+            $schedule->save();
+        }
+
+        else
+        {
+            return back()->with('success', __('schedule.flash_error'));
+        }
 
         return back()->with('success', __('schedule.flash_saved_successfully'));
 
@@ -98,18 +147,35 @@ class ScheduleController extends Controller
 
 
     // Show single schedule
-    public function show($schedule_id)
+    public function showGallery($schedule_id)
     {
         $request        = $this->request;
         $optimus        = $this->optimus;
 
         $id             = $optimus->decode($schedule_id);
-        $schedule       = Schedule::findOrFail($id);
+        $schedule       = GallerySchedule::findOrFail($id);
 
         // dd($schedule);
 
-        return view('pages.schedule-detail', compact('optimus', 'schedule'));
+        return view('pages.schedule-detail-gallery', compact('optimus', 'schedule'));
     }
+
+
+
+    // Show single schedule
+    public function showAlbum($schedule_id)
+    {
+        $request        = $this->request;
+        $optimus        = $this->optimus;
+
+        $id             = $optimus->decode($schedule_id);
+        $schedule       = AlbumSchedule::findOrFail($id);
+
+        // dd($schedule);
+
+        return view('pages.schedule-detail-album', compact('optimus', 'schedule'));
+    }
+
 
 
     // Update single schedule
@@ -126,7 +192,18 @@ class ScheduleController extends Controller
         $display_schedule       = explode(' - ', $request->display_schedule);
 
         $id                     = $optimus->decode($request->input('id'));
-        $schedule               = Schedule::findOrFail($id);
+
+        // Decide whether we're add gallery or album schedule
+        if ($request->input('type') == 'gallery')
+        {
+            $schedule           = GallerySchedule::findOrFail($id);
+        }
+
+        else if ($request->input('type') == 'album')
+        {
+            $schedule           = AlbumSchedule::findOrFail($id);
+        }
+
         $schedule->start        = trim($display_schedule[0]) . ' 00:00:00';
         $schedule->end          = trim($display_schedule[1]) . ' 23:59:59';
         $schedule->save();
@@ -143,7 +220,17 @@ class ScheduleController extends Controller
         $optimus        = $this->optimus;
 
         $id             = $optimus->decode($request->input('id'));
-        $schedule       = Schedule::findOrFail($id);
+
+        // Decide whether we're add gallery or album schedule
+        if ($request->input('type') == 'gallery')
+        {
+            $schedule           = GallerySchedule::findOrFail($id);
+        }
+
+        else if ($request->input('type') == 'album')
+        {
+            $schedule           = AlbumSchedule::findOrFail($id);
+        }
 
         $schedule->delete();
 

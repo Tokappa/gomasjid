@@ -11,4 +11,5 @@ return [
     'delete_confirmation' => 'Are you sure to delete this schedule?',
     'update_schedule_title' => 'Update Schedule',
     'flash_deleted_successfully' => 'Schedule Deleted Successfully',
+    'flash_error' => 'Error Occured',
 ];
