@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 Route::group(['prefix' => 'v1', 'middleware' => 'auth:api'], function() {
     Route::post('config', 'ApiController@postConfig');
     Route::post('slideshows', 'ApiController@postSlideshows');
+    Route::post('albums', 'ApiController@postAlbums');
     Route::post('financial', 'ApiController@postFinancial');
     Route::post('jumat', 'ApiController@postJumat');
     Route::post('news', 'ApiController@postNews');

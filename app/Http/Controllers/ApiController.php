@@ -54,7 +54,23 @@ class ApiController extends Controller
         $end            = date("Y-m-d") . " 23:59:59";
 
         // Search database
-        $slideshows     = $masjid->active_events($start, $end, true)->with('gallery')->get();
+        $slideshows     = $masjid->active_galleries($start, $end, true)->with('gallery')->get();
+        return $slideshows;
+    }
+
+
+
+    // Get masjid current albums
+    public function postAlbums()
+    {
+        $user           = Auth::guard('api')->user();
+        $masjid         = Masjid::where('user_id', $user->id)->first();
+        $id             = $masjid->id;
+        $start          = date("Y-m-d") . " 00:00:00";
+        $end            = date("Y-m-d") . " 23:59:59";
+
+        // Search database
+        $slideshows     = $masjid->active_albums($start, $end, true)->with(['album', 'album.images'])->get();
         return $slideshows;
     }
 
