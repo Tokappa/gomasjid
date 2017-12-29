@@ -105,13 +105,13 @@
                                 <div class="panel-body">
 
                                     <?php
-                                    $pengaturan_subuh = isset($pengaturan_sholat->subuh) ? $pengaturan_sholat->subuh : [0,0,0,0];
-                                    $pengaturan_dzuhur = isset($pengaturan_sholat->dzuhur) ? $pengaturan_sholat->dzuhur : [0,0,0,0];
-                                    $pengaturan_ashar = isset($pengaturan_sholat->ashar) ? $pengaturan_sholat->ashar : [0,0,0,0];
+                                    $pengaturan_subuh   = isset($pengaturan_sholat->subuh) ? $pengaturan_sholat->subuh : [0,0,0,0];
+                                    $pengaturan_dzuhur  = isset($pengaturan_sholat->dzuhur) ? $pengaturan_sholat->dzuhur : [0,0,0,0];
+                                    $pengaturan_ashar   = isset($pengaturan_sholat->ashar) ? $pengaturan_sholat->ashar : [0,0,0,0];
                                     $pengaturan_maghrib = isset($pengaturan_sholat->maghrib) ? $pengaturan_sholat->maghrib : [0,0,0,0];
-                                    $pengaturan_isya = isset($pengaturan_sholat->isya) ? $pengaturan_sholat->isya : [0,0,0,0];
-                                    $pengaturan_imsak = isset($pengaturan_sholat->imsak) ? $pengaturan_sholat->imsak : [0,0];
-                                    $pengaturan_syuruq = isset($pengaturan_sholat->syuruq) ? $pengaturan_sholat->syuruq : [0,0];
+                                    $pengaturan_isya    = isset($pengaturan_sholat->isya) ? $pengaturan_sholat->isya : [0,0,0,0];
+                                    $pengaturan_imsak   = isset($pengaturan_sholat->imsak) ? $pengaturan_sholat->imsak : [0,0];
+                                    $pengaturan_syuruq  = isset($pengaturan_sholat->syuruq) ? $pengaturan_sholat->syuruq : [0,0];
                                     ?>
 
                                     <!-- Nav tabs -->
